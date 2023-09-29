@@ -7,10 +7,30 @@
 @import "functions";
 @import "variables";
 
+$primary:      #256deeff;
+$info: #01e6faff;
+$dark: #1b263bff;
 $paragraph-margin-bottom:   0;
 $headings-margin-bottom:    0;
 $hr-margin-y:               0;
+$form-floating-padding-x:   0;
+$form-floating-padding-y:   .625rem;
+$form-floating-input-padding-b: .625rem;
+$form-floating-height:                  add(2.5rem, $input-height-border);
+$border-color:        $gray-500;
 
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+);
+
+@import "variables";
 @import "variables-dark";
 @import "maps";
 @import "mixins";
@@ -55,3 +75,7 @@ $hr-margin-y:               0;
 // Utilities
 @import "utilities/api";
 // scss-docs-end import-stack
+
+*:focus {
+  box-shadow: none !important;
+}
