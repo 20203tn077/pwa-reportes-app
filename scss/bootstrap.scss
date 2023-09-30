@@ -7,9 +7,9 @@
 @import "functions";
 @import "variables";
 
-$primary:      #256deeff;
-$info: #01e6faff;
-$dark: #1b263bff;
+$primary:      #166DDF;
+$info: #01e6fa;
+$dark: #1b263b;
 $paragraph-margin-bottom:   0;
 $headings-margin-bottom:    0;
 $hr-margin-y:               0;
@@ -18,6 +18,7 @@ $form-floating-padding-y:   .625rem;
 $form-floating-input-padding-b: .625rem;
 $form-floating-height:                  add(2.5rem, $input-height-border);
 $border-color:        $gray-500;
+$form-floating-label-transform:         scale(.85) translateY(-.775rem) translateX(0);
 
 $theme-colors: (
   "primary":    $primary,
@@ -78,4 +79,30 @@ $theme-colors: (
 
 *:focus {
   box-shadow: none !important;
+}
+
+.bg-shape {
+  width: 75%;
+  height: 50%;
+}
+
+@include media-breakpoint-up(md) {
+  .bg-shape {
+    width: 55%;
+    height: 55%;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .bg-shape {
+    width: 35%;
+    height: 60%;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .bg-shape {
+    width: 30%;
+    height: 65%;
+  }
 }
