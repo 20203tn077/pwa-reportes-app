@@ -1,3 +1,15 @@
+console.log('APP JS')
+const url = window.location.href
+const APIth = 'http://localhost:3000/api'
+let swLocation = 'reportes/sw.js'
+
 if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('sw.js')
+  if (url.includes('localhost') || url.includes('127.0.0.1')) swLocation = '/sw.js'
+
+  window.onload = () => {
+    navigator.serviceWorker.register(swLocation).then(reg => {
+      // Relleno
+    })
+  }
 }
+
