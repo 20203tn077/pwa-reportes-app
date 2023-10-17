@@ -10,6 +10,7 @@ const APP_SHELL = [
   '/css/style.css',
   '/img/koala.jpg',
   '/js/app.js',
+  '/pages/offline.html',
 ]
 
 const APP_SHELL_INMUTABLE = [
@@ -36,6 +37,18 @@ addEventListener('fetch', e => {
   // e.respondWith(caches.match(e.request))
 
 
+    // cache with network fallback
+  // const source = caches.match(e.request).then((res) => {
+  //   if (res) return res
+  //   return fetch(e.request).then((res) => {
+  //     caches.open(DYNAMIC).then((cache) => {
+  //       cache.put(e.request, res)
+  //     })
+  //     return res.clone
+  //   })
+  // })
+
+
   // network with cache fallback
   // const source = fetch(e.request).then((res) => {
   //   if (!res) throw Error('Not found')
@@ -48,28 +61,39 @@ addEventListener('fetch', e => {
   // })
 
 
-  // cache with network fallback
-  // const source = caches.match(e.request).then((res) => {
-  //   if (res) return res
-  //   return fetch(e.request).then((res) => {
-  //     caches.open(DYNAMIC).then((cache) => {
-  //       cache.put(e.request, res)
-  //     })
-  //     return res.clone
+  // cache with network update
+  // if (e.request.url.includes('bootstrap'))
+  //   return e.respondWith(caches.match(e.request))
+  // const source = caches.open(STATIC).then(cache => {
+  //   fetch(e.request).then(res => {
+  //     cache.put(e.request, res)
   //   })
+  //   return cache.match(e.request)
   // })
 
 
-  // cache with network update
-  if (e.request.url.includes('bootstrap'))
-    return e.respondWith(caches.match(e.request))
-  const source = caches.open(STATIC).then(cache => {
-    fetch(e.request).then(res => {
+  // cache and network race
+  // const source = new Promise((resolve, reject) => {
+  //   let rejected = false
+  //   const failOnce = () => {
+  //     if (rejected) {
+  //       if (/\.(png|jpg)/ig.test(e.request.url)) resolve(caches.match('/img/not-found.png'))
+  //       else reject('SourceNotFound')
+  //     } else rejected = true
+  //   }
+  //   fetch(e.request).then(res => res.ok ? resolve(res) : failOnce()).catch(failOnce)
+  //   caches.match(e.request).then(res => caches.ok ? resolve(res) : failOnce)
+  // })
+
+
+  // EJERCICIO OFFLINE
+  const source = fetch(e.request).then((res) => {
+    if (!res) throw Error('Not found')
+    caches.open(DYNAMIC).then((cache) => {
       cache.put(e.request, res)
     })
-    return cache.match(e.request)
-  })
-
+    return res.clone()
+  }).catch(() => caches.match(/\.(html)/ig.test(e.request.url) ? '/pages/offline.html' : e.request))
 
 
   e.respondWith(source)
