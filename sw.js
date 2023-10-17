@@ -93,7 +93,7 @@ addEventListener('fetch', e => {
       cache.put(e.request, res)
     })
     return res.clone()
-  }).catch(() => caches.match(/\.(html)/ig.test(e.request.url) ? '/pages/offline.html' : e.request))
+  }).catch(() => caches.match(/page-2\.(html)/ig.test(e.request.url) ? '/pages/offline.html' : e.request))
 
 
   e.respondWith(source)
