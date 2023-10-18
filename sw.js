@@ -5,17 +5,17 @@ const DYNAMIC = 'dynamicv1'
 const DYNAMIC_LIMIT = 30
 
 const APP_SHELL = [
-  '/',
-  '/index.html',
-  '/css/style.css',
-  '/img/koala.jpg',
-  '/js/app.js',
-  '/pages/offline.html',
+  './',
+  './index.html',
+  './css/style.css',
+  './img/koala.jpg',
+  './js/app.js',
+  './pages/offline.html',
 ]
 
 const APP_SHELL_INMUTABLE = [
-  '/css/bootstrap.min.css',
-  '/js/bootstrap.bundle.min.js',
+  './css/bootstrap.min.css',
+  './js/bootstrap.bundle.min.js',
 ]
 
 addEventListener('install', (e) => {
